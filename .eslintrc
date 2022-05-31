@@ -11,7 +11,8 @@
     "object-curly-newline": "off",
     "react/jsx-filename-extension": [1, { "extensions": [ ".js", ".jsx" ] } ],
     "react/prop-types": [2, { "ignore":  ["className", "children", "style"] }],
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "react/destructuring-assignment": "off"
   },
   "overrides": [
     {
