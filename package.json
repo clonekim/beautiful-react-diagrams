@@ -16,6 +16,9 @@
     "test": "nyc mocha --recursive --exit \"./tests/**/*.spec.+(js|jsx)\"",
     "test-types": "npx tsc -p . --noEmit"
   },
+  "resolutions": {
+    "sanitize.css": "12.0.1"
+  },
   "browserslist": [
     "> 0.25%",
     "not dead"
@@ -61,7 +64,7 @@
     "jsdom-global": "^3.0.2",
     "mini-css-extract-plugin": "^1.1.1",
     "mocha": "^8.2.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "7.0.1",
     "nyc": "^15.1.0",
     "postcss": "^8.1.2",
     "postcss-fixes": "^2.0.1",
@@ -93,7 +96,8 @@
     "lodash.findindex": "^4.6.0",
     "lodash.isequal": "^4.5.0",
     "lodash.throttle": "^4.1.1",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "sanitize.css": "12.0.1"
   },
   "peerDependencies": {
     "react": ">=16.14.0",
