@@ -24,7 +24,8 @@
 
       .bi-input-ports,
       .bi-output-ports {
-        flex: 1 1;
+        padding: 0.5rem;
+        font-size: 0.8rem;
 
         .bi-diagram-port {
           transition: background-color 0.25s ease-in-out;
@@ -112,7 +113,7 @@
       // link path
       .bi-link-path {
         stroke: #dae1e7;
-        stroke-width: 0.25rem;
+        stroke-width: 1.25rem;
         pointer-events: stroke;
         fill: transparent;
         cursor: pointer;

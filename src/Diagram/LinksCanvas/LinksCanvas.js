@@ -9,30 +9,33 @@ import removeLinkFromArray from './removeLinkFromArray';
 /**
  * Handles the links' events and business logic, wraps the links within a svg
  */
-const LinksCanvas = (props) => {
+const LinksCanvas = props => {
   const { nodes, segment, onChange, links } = props;
 
-  const removeFromLinksArray = useCallback((link) => {
-    if (links.length > 0 && onChange) {
-      const nextLinks = removeLinkFromArray(link, links);
-      onChange(nextLinks);
-    }
-  }, [links, onChange]);
+  const removeFromLinksArray = useCallback(
+    link => {
+      if (links.length > 0 && onChange) {
+        const nextLinks = removeLinkFromArray(link, links);
+        onChange(nextLinks);
+      }
+    },
+    [links, onChange]
+  );
 
   return (
-    <svg className="bi bi-link-canvas-layer">
-      {links && links.length > 0 && links.map((link) => (
-        <DiagramLink
-          link={link}
-          input={findInvolvedEntity(nodes, link.input)}
-          output={findInvolvedEntity(nodes, link.output)}
-          onDelete={removeFromLinksArray}
-          key={`${link.input}-${link.output}`}
-        />
-      ))}
-      {segment && (
-        <Segment {...segment} />
-      )}
+    <svg className='bi bi-link-canvas-layer'>
+      {links &&
+        links.length > 0 &&
+        links.map(link => (
+          <DiagramLink
+            link={link}
+            input={findInvolvedEntity(nodes, link.input)}
+            output={findInvolvedEntity(nodes, link.output)}
+            //          onDelete={removeFromLinksArray}
+            key={`${link.input}-${link.output}`}
+          />
+        ))}
+      {segment && <Segment {...segment} />}
     </svg>
   );
 };

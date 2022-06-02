@@ -2,7 +2,10 @@ import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import getDiagramNodeStyle from './getDiagramNodeStyle';
-import { usePortRegistration, useNodeRegistration } from '../../shared/internal_hooks/useContextRegistration';
+import {
+  usePortRegistration,
+  useNodeRegistration,
+} from '../../shared/internal_hooks/useContextRegistration';
 import { PortType } from '../../shared/Types';
 import portGenerator from './portGenerator';
 import useDrag from '../../shared/internal_hooks/useDrag';
@@ -13,10 +16,25 @@ import useNodeUnregistration from '../../shared/internal_hooks/useNodeUnregistra
  * related callback. Displays input and output ports if existing and takes care of firing the `onPortRegister` callback
  * when a port is ready (aka rendered),
  */
-const DiagramNode = (props) => {
+const DiagramNode = props => {
   const {
-    id, content, coordinates, type, inputs, outputs, data, onPositionChange, onPortRegister, onNodeRemove,
-    onDragNewSegment, onMount, onSegmentFail, onSegmentConnect, render, className, disableDrag,
+    id,
+    content,
+    coordinates,
+    type,
+    inputs,
+    outputs,
+    data,
+    onPositionChange,
+    onPortRegister,
+    onNodeRemove,
+    onDragNewSegment,
+    onMount,
+    onSegmentFail,
+    onSegmentConnect,
+    render,
+    className,
+    disableDrag,
   } = props;
   const registerPort = usePortRegistration(inputs, outputs, onPortRegister); // get the port registration method
   const { ref, onDragStart, onDrag } = useDrag({ throttleBy: 14 }); // get the drag n drop methods
@@ -48,29 +66,55 @@ const DiagramNode = (props) => {
   // perform the onMount callback when the node is allowed to register
   useNodeRegistration(ref, onMount, id);
 
-  const classList = useMemo(() => classNames('bi bi-diagram-node', {
-    [`bi-diagram-node-${type}`]: !!type && !render,
-  }, className), [type, className]);
+  const classList = useMemo(
+    () =>
+      classNames(
+        'bi bi-diagram-node',
+        {
+          [`bi-diagram-node-${type}`]: !!type && !render,
+        },
+        className
+      ),
+    [type, className]
+  );
 
   // generate ports
-  const options = { registerPort, onDragNewSegment, onSegmentFail, onSegmentConnect };
+  const options = {
+    registerPort,
+    onDragNewSegment,
+    onSegmentFail,
+    onSegmentConnect,
+  };
   const InputPorts = inputs.map(portGenerator(options, 'input'));
   const OutputPorts = outputs.map(portGenerator(options, 'output'));
-  const customRenderProps = { id, render, content, type, inputs: InputPorts, outputs: OutputPorts, data, className };
+  const customRenderProps = {
+    id,
+    render,
+    content,
+    type,
+    inputs: InputPorts,
+    outputs: OutputPorts,
+    data,
+    className,
+  };
 
   return (
-    <div className={classList} ref={ref} style={getDiagramNodeStyle(coordinates, disableDrag)}>
+    <div
+      className={classList}
+      ref={ref}
+      style={getDiagramNodeStyle(coordinates, disableDrag)}>
       {render && typeof render === 'function' && render(customRenderProps)}
       {!render && (
         <>
           {content}
-          <div className="bi-port-wrapper">
-            <div className="bi-input-ports">
-              {InputPorts}
-            </div>
-            <div className="bi-output-ports">
-              {OutputPorts}
-            </div>
+          <div className='bi-port-wrapper'>
+            {InputPorts.length > 0 && (
+              <div className='bi-input-ports'>{InputPorts}</div>
+            )}
+
+            {OutputPorts.length > 0 && (
+              <div className='bi-output-ports'>{OutputPorts}</div>
+            )}
           </div>
         </>
       )}
